@@ -1,3 +1,5 @@
+# src/screens/play.py
+
 from pgzero.builtins import screen
 from src.game import Game
 from screens.game_over import GameOverScreen
@@ -9,12 +11,12 @@ class PlayScreen:
         self.paused = False
 
     def update(self, input_state):
-        # Pause toggle
+        # Toggle pause when P is pressed
         if input_state.pause_pressed:
             self.paused = not self.paused
             return
 
-        # Only update game when not paused
+        # Only advance game simulation when not paused
         if not self.paused:
             self.game.update(input_state)
 
@@ -23,6 +25,9 @@ class PlayScreen:
             self.app.change_screen(GameOverScreen(self.app, self.game.player.score))
 
     def draw(self):
+        # Always draw the game
         self.game.draw()
+
+        # Draw pause overlay when paused
         if self.paused:
             screen.draw.text("PAUSED", center=(400, 300), fontsize=60)
