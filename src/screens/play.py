@@ -1,3 +1,4 @@
+from pgzero.builtins import screen
 from src.game import Game
 from screens.game_over import GameOverScreen
 
@@ -8,13 +9,16 @@ class PlayScreen:
         self.paused = False
 
     def update(self, input_state):
+        # Pause toggle
         if input_state.pause_pressed:
             self.paused = not self.paused
             return
 
+        # Only update game when not paused
         if not self.paused:
             self.game.update(input_state)
 
+        # Game over transition
         if self.game.player.lives <= 0:
             self.app.change_screen(GameOverScreen(self.app, self.game.player.score))
 
