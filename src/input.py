@@ -1,3 +1,5 @@
+# src/input.py
+
 from dataclasses import dataclass
 from pgzero.builtins import keyboard
 
@@ -23,7 +25,7 @@ def build_input_state():
     if keyboard.up: current.add("up")
     if keyboard.p: current.add("p")
 
-    # Edge detection helper
+    # Edge detection
     def pressed(key):
         return key in current and key not in _prev
 
